@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/levels/level.gd" type="Script" id=2]
+[ext_resource path="res://scenes/fish/fish.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 640, 10 )
@@ -9,6 +11,8 @@ extents = Vector2( 640, 10 )
 extents = Vector2( 10, 360 )
 
 [node name="Level" type="Node2D"]
+script = ExtResource( 2 )
+fish = ExtResource( 3 )
 
 [node name="Borders" type="StaticBody2D" parent="."]
 
@@ -29,4 +33,31 @@ position = Vector2( 1290, 360 )
 shape = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 359, 227 )
+position = Vector2( 640, 50 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Message" type="Label" parent="CanvasLayer/VBoxContainer"]
+margin_top = 341.0
+margin_right = 1280.0
+margin_bottom = 355.0
+text = "You win / you lose"
+align = 1
+
+[node name="Restart" type="Button" parent="CanvasLayer/VBoxContainer"]
+margin_left = 611.0
+margin_top = 359.0
+margin_right = 668.0
+margin_bottom = 379.0
+size_flags_horizontal = 4
+text = "Restart"
+
+[connection signal="all_enemies_died" from="Player" to="." method="_on_Player_all_enemies_died"]
+[connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Restart" to="." method="_on_Restart_pressed"]
