@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="MJ109"
-run/main_scene="res://scenes/levels/level.tscn"
+run/main_scene="res://scenes/title/title.tscn"
 config/icon="res://icon.png"
 
 [debug]

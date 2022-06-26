@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 
 signal player_died
+signal enemy_died
 signal all_enemies_died
 
 export var base_speed := 200
@@ -25,9 +26,11 @@ func _on_Area2D_area_entered(area: Area2D) -> void:
 		queue_free()
 		emit_signal("player_died")
 	else:
+		emit_signal("enemy_died")
 		size += area.size
 		$CanvasLayer/ProgressBar.value = size
 		area.queue_free()
+		$EatGood.play()
 		yield(get_tree(), "idle_frame")
 		if get_tree().get_nodes_in_group("fish").size() == 0:
 			emit_signal("all_enemies_died")

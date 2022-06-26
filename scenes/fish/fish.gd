@@ -14,8 +14,6 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		position += direction * speed * delta
 		if direction == Vector2.RIGHT and position.x > SCREEN_SIZE.x + SPACE:
-			direction = Vector2.LEFT
-			$Sprite.flip_h = true
+			queue_free()
 		elif direction == Vector2.LEFT and position.x < -SPACE:
-			direction = Vector2.RIGHT
-			$Sprite.flip_h = false
+			queue_free()
