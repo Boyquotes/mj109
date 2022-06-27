@@ -7,7 +7,7 @@
 [ext_resource path="res://resources/main.tres" type="Theme" id=5]
 [ext_resource path="res://fonts/LilitaOne-Regular.ttf" type="DynamicFontData" id=6]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
 size = 48
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
@@ -39,23 +39,31 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 308.0
+margin_top = 284.0
 margin_right = 1280.0
-margin_bottom = 364.0
-custom_fonts/font = SubResource( 1 )
+margin_bottom = 340.0
+custom_fonts/font = SubResource( 3 )
 text = "Affirmation Fish: Anxiety Fishues"
 align = 1
 
 [node name="Start" type="Button" parent="VBoxContainer"]
 margin_left = 598.0
-margin_top = 368.0
+margin_top = 344.0
 margin_right = 681.0
-margin_bottom = 412.0
+margin_bottom = 388.0
 size_flags_horizontal = 4
 text = "Start"
 
 [node name="Select" type="AudioStreamPlayer" parent="VBoxContainer/Start"]
 stream = ExtResource( 3 )
+
+[node name="Credits" type="Button" parent="VBoxContainer"]
+margin_left = 584.0
+margin_top = 392.0
+margin_right = 696.0
+margin_bottom = 436.0
+size_flags_horizontal = 4
+text = "Credits"
 
 [node name="BG" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
@@ -63,3 +71,4 @@ autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_Start_pressed"]
 [connection signal="finished" from="VBoxContainer/Start/Select" to="." method="_on_Select_finished"]
+[connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_Credits_pressed"]

@@ -1,10 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/levels/level.gd" type="Script" id=2]
-[ext_resource path="res://scenes/fish/fish.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/fish/shark.tscn" type="PackedScene" id=3]
 [ext_resource path="res://music/bgm1.ogg" type="AudioStream" id=4]
 [ext_resource path="res://sprites/Ocean_Background_2.jpg" type="Texture" id=5]
+[ext_resource path="res://scenes/fish/barracuda.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/fish/shark2.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/fish/pufferfish.tscn" type="PackedScene" id=8]
+[ext_resource path="res://resources/main.tres" type="Theme" id=9]
+[ext_resource path="res://fonts/LilitaOne-Regular.ttf" type="DynamicFontData" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 640, 10 )
@@ -12,9 +17,18 @@ extents = Vector2( 640, 10 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 360 )
 
+[sub_resource type="DynamicFont" id=3]
+size = 48
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 10 )
+
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
-fish = ExtResource( 3 )
+shark = ExtResource( 3 )
+barracuda = ExtResource( 6 )
+shark2 = ExtResource( 7 )
+pufferfish = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 5 )
@@ -47,29 +61,40 @@ position = Vector2( 640, 50 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 9 )
 alignment = 1
 
 [node name="Message" type="Label" parent="CanvasLayer/VBoxContainer"]
-margin_top = 341.0
+margin_top = 284.0
 margin_right = 1280.0
-margin_bottom = 355.0
+margin_bottom = 340.0
+custom_fonts/font = SubResource( 3 )
 text = "You win / you lose"
 align = 1
+valign = 1
+autowrap = true
 
 [node name="Restart" type="Button" parent="CanvasLayer/VBoxContainer"]
-margin_left = 611.0
-margin_top = 359.0
-margin_right = 668.0
-margin_bottom = 379.0
+margin_left = 582.0
+margin_top = 344.0
+margin_right = 697.0
+margin_bottom = 388.0
 size_flags_horizontal = 4
 text = "Restart"
+
+[node name="Title" type="Button" parent="CanvasLayer/VBoxContainer"]
+margin_left = 603.0
+margin_top = 392.0
+margin_right = 677.0
+margin_bottom = 436.0
+size_flags_horizontal = 4
+text = "Title"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 autoplay = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
 one_shot = true
 autostart = true
 
@@ -77,4 +102,5 @@ autostart = true
 [connection signal="enemy_died" from="Player" to="." method="_on_Player_enemy_died"]
 [connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Restart" to="." method="_on_Restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Title" to="." method="_on_Title_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
